@@ -1,2 +1,5 @@
 /.idea/
 /cmd-server.iml
+/package-lock.json
+/node_modules/
+/dist/

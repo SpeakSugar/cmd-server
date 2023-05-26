@@ -1,4 +1,38 @@
 # Cmd-Server
 
 ## Introduction
-通过 http 的形式在机器上执行 cmd 命令
+use http to execute cmd on your remote machine
+
+### Requirement
+```
+nodejs
+```
+
+### Installation
+```bash
+npm install -g cmd-server
+```
+
+### server start / stop
+```bash
+cmds # port: 7777
+
+ctrl+c # end server 
+```
+
+### client request
+```typescript
+import axios from "axios";
+
+const data = (await axios.request({
+    url: `http://${ip}:7777/cmd`,
+    method: 'post',
+    timeout: 10e3,
+    data: {
+        cmd: `ls`,
+        timeout: 10e3
+    },
+})).data;
+console.log(data);
+
+```
