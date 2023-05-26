@@ -24,6 +24,13 @@ ctrl+c # end server
 ```typescript
 import axios from "axios";
 
+const os = (await axios.request({
+    url: `http://${ip}:7777/os`,
+    method: 'get',
+    timeout: 10e3,
+})).data
+console.log(os); // os = win / mac / linux
+
 const data = (await axios.request({
     url: `http://${ip}:7777/cmd`,
     method: 'post',
