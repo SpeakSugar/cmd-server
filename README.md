@@ -10,7 +10,7 @@ nodejs
 
 ### Installation
 ```bash
-npm install -g cmd-server
+npm install -g zion-cmd-server
 ```
 
 ### server start / stop

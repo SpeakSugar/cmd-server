@@ -1,5 +1,5 @@
 {
-  "name": "cmd-server",
+  "name": "zion-cmd-server",
   "version": "1.0.0",
   "description": "a http server that can exec cmd.",
   "bin": {
