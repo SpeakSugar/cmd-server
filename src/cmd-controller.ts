@@ -17,6 +17,17 @@ export class CmdController {
         }
     }
 
+    onGetArchRequest = async (ctx: Context, next: () => Promise<any>) => {
+        const arch = process.arch;
+        if (arch.includes("arm") || arch.includes("ia32")) {
+            ctx.status = 200;
+            ctx.body = "arm";
+        } else {
+            ctx.status = 200;
+            ctx.body = "intel";
+        }
+    }
+
     onCmdRequest = async (ctx: Context, next: () => Promise<any>) => {
         const cmd: string = ctx.request.body.cmd;
         const timeout: number = ctx.request.body.timeout;

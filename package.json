@@ -1,6 +1,6 @@
 {
   "name": "zion-cmd-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a http server that can exec cmd.",
   "bin": {
     "cmds": "dist/main.js"

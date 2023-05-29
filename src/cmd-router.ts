@@ -7,6 +7,7 @@ export class CmdRouter {
         const cmdController = new CmdController();
         const router = new Router();
         router.get('/os', cmdController.onGetOsRequest);
+        router.get('/arch', cmdController.onGetArchRequest);
         router.post('/cmd', cmdController.onCmdRequest);
         return router;
     }
