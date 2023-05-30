@@ -2,7 +2,7 @@ import { NetUtil, RetryUtil } from "zion-common-utils";
 
 export class GlobalVars {
 
-    public static version: string = require('../../package.json').version;
+    public static version: string = require('../package.json').version;
 
     public static ip: string;
 
