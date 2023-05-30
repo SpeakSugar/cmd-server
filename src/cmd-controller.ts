@@ -1,7 +1,13 @@
 import { Context } from "koa";
 import { ProcessUtil } from "zion-common-utils";
+import { GlobalVars } from "./global-vars";
 
 export class CmdController {
+
+    onGetVersionRequest = async (ctx: Context, next: () => Promise<any>) => {
+        ctx.status = 200;
+        ctx.body = GlobalVars.version
+    }
 
     onGetOsRequest = async (ctx: Context, next: () => Promise<any>) => {
         const platform = process.platform
@@ -40,7 +46,7 @@ export class CmdController {
         } catch (e) {
             console.error(e)
             ctx.status = 500;
-            ctx.body = e.message
+            ctx.body = `[cmd-server ${GlobalVars.ip}] ${e.message}`
         }
     }
 
