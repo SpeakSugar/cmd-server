@@ -24,6 +24,19 @@ ctrl+c # end server
 ```typescript
 import axios from "axios";
 
+const version = (await axios.request({
+    url: `http://${ip}:7777/version`,
+    method: 'get',
+    timeout: 10e3,
+})).data
+
+const arch = (await axios.request({
+    url: `http://${ip}:7777/arch`,
+    method: 'get',
+    timeout: 10e3,
+})).data
+console.log(arch); // arch = intel / arm
+
 const os = (await axios.request({
     url: `http://${ip}:7777/os`,
     method: 'get',
