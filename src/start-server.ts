@@ -2,8 +2,11 @@ import * as Koa from "koa";
 import * as bodyparser from "koa-bodyparser"
 import { Server } from "http";
 import { CmdRouter } from "./cmd-router";
+import { GlobalVars } from "./global-vars";
 
 export async function startCmdServer() {
+
+    await GlobalVars.init()
 
     const cmdRouter = CmdRouter.init();
     const app = new Koa();
