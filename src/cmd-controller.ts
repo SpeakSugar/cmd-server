@@ -25,12 +25,28 @@ export class CmdController {
 
     onGetArchRequest = async (ctx: Context, next: () => Promise<any>) => {
         const arch = process.arch;
-        if (arch.includes("arm") || arch.includes("ia32")) {
-            ctx.status = 200;
-            ctx.body = "arm";
+        const platform = process.platform
+        if (platform == "win32") {
+            try {
+                let result = await ProcessUtil.exec(`wmic cpu get Name`);
+                if (result.toLowerCase().includes(`arm`) || result.toLowerCase().includes(`Snapdragon`)) {
+                    ctx.status = 200;
+                    ctx.body = "arm";
+                } else {
+                    ctx.status = 200;
+                    ctx.body = "intel";
+                }
+            } catch (e) {
+                return "intel";
+            }
         } else {
-            ctx.status = 200;
-            ctx.body = "intel";
+            if (arch.includes("arm") || arch.includes("ia32")) {
+                ctx.status = 200;
+                ctx.body = "arm";
+            } else {
+                ctx.status = 200;
+                ctx.body = "intel";
+            }
         }
     }
 
