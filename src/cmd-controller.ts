@@ -29,7 +29,7 @@ export class CmdController {
         if (platform == "win32") {
             try {
                 let result = await ProcessUtil.exec(`wmic cpu get Name`);
-                if (result.toLowerCase().includes(`arm`) || result.toLowerCase().includes(`Snapdragon`)) {
+                if (result.toLowerCase().includes(`arm`) || result.toLowerCase().includes(`snapdragon`)) {
                     ctx.status = 200;
                     ctx.body = "arm";
                 } else {
