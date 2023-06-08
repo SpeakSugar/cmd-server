@@ -15,7 +15,7 @@ npm install -g zion-cmd-server
 
 ### server start / stop
 ```bash
-cmds # port: 7777
+sudo cmds # port: 7777 mac needs sudo
 
 ctrl+c # end server 
 ```
