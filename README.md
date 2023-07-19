@@ -20,6 +20,10 @@ sudo cmds # port: 7777 mac needs sudo
 ctrl+c # end server 
 ```
 
+```bash
+sudo cmds --port 4396 # custom server port 
+```
+
 ### client request
 ```typescript
 import axios from "axios";

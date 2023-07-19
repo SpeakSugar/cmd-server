@@ -4,7 +4,7 @@ import { Server } from "http";
 import { CmdRouter } from "./cmd-router";
 import { GlobalVars } from "./global-vars";
 
-export async function startCmdServer() {
+export async function startCmdServer(port?: string) {
 
     await GlobalVars.init()
 
@@ -24,8 +24,8 @@ export async function startCmdServer() {
         });
 
     let server: Server = await new Promise((resolve, reject) => {
-        const server = app.listen(7777, '0.0.0.0', () => {
-            console.info(`cmd-server is starting at port 7777`);
+        const server = app.listen(port ? Number(port) : 7777, '0.0.0.0', () => {
+            console.info(`cmd-server is starting at port ${port ? Number(port) : 7777}`);
             resolve(server);
         });
     });
