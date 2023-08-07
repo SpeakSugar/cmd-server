@@ -3,10 +3,16 @@ import * as bodyparser from "koa-bodyparser"
 import { Server } from "http";
 import { CmdRouter } from "./cmd-router";
 import { GlobalVars } from "./global-vars";
+import { ProcessUtil } from "zion-common-utils";
 
 export async function startCmdServer(port?: string) {
 
-    await GlobalVars.init()
+    await GlobalVars.init();
+
+    // self check
+    if (process.platform != 'win32') {
+        await ProcessUtil.exec(`ls ~/Downloads`);
+    }
 
     const cmdRouter = CmdRouter.init();
     const app = new Koa();
