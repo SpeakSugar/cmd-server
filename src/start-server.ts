@@ -9,8 +9,8 @@ export async function startCmdServer(port?: string) {
 
     await GlobalVars.init();
 
-    // self check
-    if (process.platform != 'win32') {
+    // macos self check
+    if (process.platform == 'darwin') {
         await ProcessUtil.exec(`ls ~/Downloads`);
     }
 
