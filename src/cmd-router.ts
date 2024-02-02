@@ -10,6 +10,7 @@ export class CmdRouter {
         router.get('/os', cmdController.onGetOsRequest);
         router.get('/arch', cmdController.onGetArchRequest);
         router.post('/cmd', cmdController.onCmdRequest);
+        router.post('/file', cmdController.onFileRequest);
         return router;
     }
 

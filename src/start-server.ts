@@ -4,6 +4,7 @@ import { Server } from "http";
 import { CmdRouter } from "./cmd-router";
 import { GlobalVars } from "./global-vars";
 import { ProcessUtil } from "zion-common-utils";
+import KoaBody from "koa-body";
 
 export async function startCmdServer(port?: string) {
 
@@ -16,18 +17,22 @@ export async function startCmdServer(port?: string) {
 
     const cmdRouter = CmdRouter.init();
     const app = new Koa();
+    app.use(async (ctx, next) => {
+        try {
+            await next();
+        } catch (e) {
+            ctx.status = 500;
+            ctx.body = `controller error, ${e.message}`;
+        }
+    });
     app
         .use(bodyparser())
+        .use(KoaBody({
+            multipart: true,
+            formidable: { keepExtensions: true, }
+        }))
         .use(cmdRouter.routes())
         .use(cmdRouter.allowedMethods())
-        .use(async (ctx, next) => {
-            try {
-                await next();
-            } catch (e) {
-                ctx.status = 500;
-                ctx.body = `controller error, ${e.message}`;
-            }
-        });
 
     let server: Server = await new Promise((resolve, reject) => {
         const server = app.listen(port ? Number(port) : 7777, '0.0.0.0', () => {

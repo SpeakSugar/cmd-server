@@ -1,6 +1,8 @@
 import { Context } from "koa";
-import { ProcessUtil } from "zion-common-utils";
+import { FileUtil, ProcessUtil } from "zion-common-utils";
 import { GlobalVars } from "./global-vars";
+import { homedir } from "os";
+import * as fs from "fs";
 
 export class CmdController {
 
@@ -64,6 +66,25 @@ export class CmdController {
             ctx.status = 500;
             ctx.body = `[cmd-server ${GlobalVars.ip}] ${e.message}`
         }
+    }
+
+    onFileRequest = async (ctx: any) => {
+        const file = ctx.request.files.file;
+        const destDir = `${homedir}/cmd-server/file`;
+        if (!await FileUtil.isExist(destDir)) {
+            await fs.promises.mkdir(destDir, { recursive: true });
+        }
+        await new Promise((resolve, reject) => {
+            const reader = fs.createReadStream(file.filepath);
+            const stream = fs.createWriteStream(`${destDir}/${file.originalFilename}`);
+            reader.pipe(stream);
+            stream.on('error', (err) => {
+                stream.close();
+                reject(err);
+            });
+            stream.on('finish', () => resolve(`finish`));
+        });
+        ctx.status = 200;
     }
 
 }

@@ -24,10 +24,11 @@
   "dependencies": {
     "@koa/router": "^10.1.1",
     "koa": "^2.13.4",
+    "koa-body": "^6.0.1",
     "koa-bodyparser": "^2.5.0",
     "koa-logger": "^3.2.1",
     "koa-send": "^5.0.1",
-    "zion-common-utils": "1.1.8",
-    "yargs": "^16.1.1"
+    "yargs": "^16.1.1",
+    "zion-common-utils": "1.1.8"
   }
 }
