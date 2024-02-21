@@ -24,6 +24,10 @@ ctrl+c # end server
 sudo cmds --port 4396 # custom server port 
 ```
 
+```bash 
+sudo cmds --passwd 123456 # custom password, you can add it in request method
+```
+
 ### client request
 ```typescript
 import axios from "axios";
@@ -32,12 +36,18 @@ const version = (await axios.request({
     url: `http://${ip}:7777/version`,
     method: 'get',
     timeout: 10e3,
+    params: {
+        passwd: '123456'
+    }
 })).data
 
 const arch = (await axios.request({
     url: `http://${ip}:7777/arch`,
     method: 'get',
     timeout: 10e3,
+    params: {
+        passwd: '123456'
+    }
 })).data
 console.log(arch); // arch = intel / arm
 
@@ -45,6 +55,9 @@ const os = (await axios.request({
     url: `http://${ip}:7777/os`,
     method: 'get',
     timeout: 10e3,
+    params: {
+        passwd: '123456'
+    }
 })).data
 console.log(os); // os = win / mac / linux
 
@@ -56,6 +69,9 @@ const data = (await axios.request({
         cmd: `ls`,
         timeout: 10e3
     },
+    params: {
+        passwd: '123456'
+    }
 })).data;
 console.log(data);
 

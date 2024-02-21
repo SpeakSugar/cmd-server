@@ -5,9 +5,9 @@ import { CmdRouter } from "./cmd-router";
 import { GlobalVars } from "./global-vars";
 import { ProcessUtil } from "zion-common-utils";
 
-export async function startCmdServer(port?: string) {
+export async function startCmdServer(port?: string, passwd?: string) {
 
-    await GlobalVars.init();
+    await GlobalVars.init(passwd);
 
     // macos self check
     if (process.platform == 'darwin') {
@@ -22,6 +22,14 @@ export async function startCmdServer(port?: string) {
         } catch (e) {
             ctx.status = 500;
             ctx.body = `controller error, ${e.message}`;
+        }
+    });
+    app.use(async (ctx, next) => {
+        if (GlobalVars.passwd && String(ctx.request.query.passwd) != GlobalVars.passwd) {
+            ctx.status = 500;
+            ctx.body = `wrong passwd`
+        } else {
+            await next();
         }
     });
     app

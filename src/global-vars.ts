@@ -6,7 +6,10 @@ export class GlobalVars {
 
     public static ip: string;
 
-    public static async init() {
+    public static passwd: string;
+
+    public static async init(passwd?: string) {
+        this.passwd = passwd;
         this.ip =  await RetryUtil.retry(() => {
             return NetUtil.getLocalIp()
         }, { timeout: 2 * 60e3 });
