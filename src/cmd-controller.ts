@@ -1,10 +1,8 @@
 import { Context } from "koa";
-import { FileUtil, ProcessUtil } from "zion-common-utils";
+import { FileUtil, PathUtil, ProcessUtil } from "zion-common-utils";
 import { GlobalVars } from "./global-vars";
 import { homedir } from "os";
 import * as fs from "fs";
-import * as extract from 'extract-zip';
-import * as path from "path";
 
 export class CmdController {
 
@@ -72,7 +70,7 @@ export class CmdController {
 
     onFileRequest = async (ctx: any) => {
         const file = ctx.request.files.file;
-        const destDir = `${homedir}/cmd-server/file`;
+        const destDir = PathUtil.parseToPath(ctx.request.body.dest);
         if (!await FileUtil.isExist(destDir)) {
             await fs.promises.mkdir(destDir, { recursive: true });
         }
@@ -86,16 +84,6 @@ export class CmdController {
             });
             stream.on('finish', () => resolve(`finish`));
         });
-        if (file.originalFilename.includes(`.zip`)) {
-            await fs.promises.rm(`${destDir}/${file.originalFilename.replace(`.zip`, ``)}`, {
-                recursive: true,
-                force: true,
-                maxRetries: 3,
-                retryDelay: 2e3
-            });
-            await extract(`${destDir}/${file.originalFilename}`, { dir: `${path.resolve(destDir)}` });
-            await fs.promises.rm(`${destDir}/${file.originalFilename}`, { force: true });
-        }
         ctx.status = 200;
     }
 

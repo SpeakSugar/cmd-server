@@ -75,4 +75,19 @@ const data = (await axios.request({
 })).data;
 console.log(data);
 
+import * as FormData from "form-data";
+
+const filePath = `/Users/xxxxx/xxxxx/xxxxx.zip`;
+const fileName = path.basename(filePath);
+const fileData = fs.readFileSync(filePath);
+const formData = new FormData();
+formData.append('file', fileData, fileName);
+formData.append('dest', `$HOME/cmd-server`);
+await AxiosUtil.request({
+    url: `http://127.0.0.1:7777/file`,
+    method: 'post',
+    headers: { ...formData.getHeaders() },
+    data: formData
+});
+
 ```
