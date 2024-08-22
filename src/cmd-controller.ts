@@ -30,7 +30,7 @@ export class CmdController {
         const platform = process.platform
         if (platform == "win32") {
             try {
-                let result = await ProcessUtil.exec(`wmic cpu get Name`);
+                let result = await ProcessUtil.exec(`powershell -Command "Get-CimInstance -ClassName Win32_Processor | Select-Object -Property Name"`);
                 if (result.toLowerCase().includes(`arm`) || result.toLowerCase().includes(`snapdragon`)) {
                     ctx.status = 200;
                     ctx.body = "arm";
@@ -39,7 +39,8 @@ export class CmdController {
                     ctx.body = "intel";
                 }
             } catch (e) {
-                return "intel";
+                ctx.status = 200;
+                ctx.body = "intel";
             }
         } else {
             if (arch.includes("arm") || arch.includes("ia32")) {
