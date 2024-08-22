@@ -1,2 +1,3 @@
-tsc
+npm run tsc
 npm publish
+
