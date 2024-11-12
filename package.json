@@ -1,6 +1,6 @@
 {
   "name": "zion-cmd-server",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "a http server that can exec cmd.",
   "bin": {
     "cmds": "dist/main.js"
@@ -32,7 +32,7 @@
     "koa-logger": "^3.2.1",
     "koa-send": "^5.0.1",
     "yargs": "^16.1.1",
-    "zion-common-utils": "1.4.6",
+    "zion-common-utils": "1.5.9",
     "sqlite3": "^5.0.3",
     "typeorm": "^0.3.15"
   }
