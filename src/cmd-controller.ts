@@ -64,8 +64,13 @@ export class CmdController {
             ctx.body = result;
         } catch (e) {
             console.error(e)
-            ctx.status = 500;
-            ctx.body = `[cmd-server ${GlobalVars.ip}] ${e.message}`
+            if (e.message.includes(`ExperimentalWarning`)) {
+                ctx.status = 200;
+                ctx.body = `[cmd-server ${GlobalVars.ip}] ${e.message}`;
+            } else {
+                ctx.status = 500;
+                ctx.body = `[cmd-server ${GlobalVars.ip}] ${e.message}`
+            }
         }
     }
 
